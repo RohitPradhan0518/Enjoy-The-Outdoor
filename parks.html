@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Park</title>
+</head>
+<body>
+    
+</body>
+</html>
+<head>
+    <script src="./scripts/nationalParkData.js"></script>
+    <script src="./scripts/parkTypeData.js"></script>
+
+</head>
+
+</head>
+<body>
+<label for="parkType">
+    Search by Prak Type
+    <select id="parkType"></select>
+</label>
+<div id="petCardList"></div>
+</body>
+
+<script>
+    //document.body.innerText = parkTypesArray
+    parkTypesArray.forEach(name => {
+        o=document.createElement("Option")
+        o.innerText=name
+        parkType.appendChild(o)
+    });
+</script>
