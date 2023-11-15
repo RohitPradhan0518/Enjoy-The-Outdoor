@@ -1,1 +1,2 @@
-![Alt text](screenshot formountain.png)
+![Example Image](Screenshot for mountain.jpg)
+
