@@ -69,3 +69,7 @@ button span{
     left: 22%;
     width: 200px;
 }
+
+.srch:focus{
+    outline: none;
+}
