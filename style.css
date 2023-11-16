@@ -273,3 +273,18 @@ ul li a{
     color: #ff7200;
 }
 
+.carousel-item {
+    text-align: center;
+}
+.carousel-item {
+    max-height: 350px;
+    width: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px black;
+}
+img {
+    height: 70vw;
+    width: 100vw;
+
+}
+
