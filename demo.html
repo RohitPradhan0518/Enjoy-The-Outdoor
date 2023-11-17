@@ -1,0 +1,56 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mountains</title>
+
+    <!-- FIRST LOAD ALL THE MOUNTAINS LIKE THIS -->
+    <script src="./scripts/mountainData.js"></script>
+</head>
+<body>
+    <h1>Mountains</h1> 
+    <!-- THIRD MAKE A PLACE FOR THE MOUNTAIN LIST AND A DEFAULT OPTION -->
+    <select id="list"><option value="">Select a Mountain</option></select>
+
+    <!-- FIFTH ADD TARGET FOR RESULTS -->
+    <p id="results"></p>
+
+    <script>
+        // SECOND MAKE SURE DATA IS LOADED LIKE THIS
+        document.body.innerHTML += mountainsArray.length; //We should see 48 in the show preview
+
+        // FOURTH LOOP THROUGH ALL DATA AND ADD A NEW OPTION FOR EACH TO THE SELECT
+        mountainsArray.forEach(mountain => { //USE FOR EACH METHOD OF THE DATA TO GET 1 AT A TIME IN ARROW FUNCTION
+            const option = document.createElement("option"); //CREATE BLANK OPTION ELEMENT
+            option.innerHTML = mountain.name; // SET DISPLAY OPTION CONTENT TO NAME
+            list.appendChild(option); // PLACE OPTION IN THE SELECT LIST
+        }); //END FOR EACH
+
+        // SIXTH - LISTEN FOR LIST CHANGE SELECTION
+        list.addEventListener("change", async event => { 
+            let mountain = mountainsArray.find(m => m.name == event.target.value); //FIND DATA
+            results.innerHTML = `<h1>${mountain.name}</h1>`; //SHOW RESULTS
+            results.innerHTML += mountain.desc;
+            results.innerHTML += `<h3>Elevation: ${mountain.elevation} feet</h3>`; 
+            results.innerHTML += `<h3>Effort: ${mountain.effort}</h3>`; 
+            results.innerHTML += `<img src="./images/${mountain.img}">`;
+
+            // Get sunrise and sunset times for the selected mountain
+            try {
+                const { results } = await getSunsetForMountain(mountain.lat, mountain.lng);
+                results.innerHTML += `<h3>Sunrise: ${results.sunrise}</h3>`;
+                results.innerHTML += `<h3>Sunset: ${results.sunset}</h3>`;
+            } catch (error) {
+                console.error("Error fetching sunrise/sunset times:", error);
+            }
+        }); //END LISTENER
+    </script>
+
+    <!-- function that can "fetch" the sunrise/sunset times -->
+    <script>
+        async function getSunsetForMountain(lat, lng){
+            let response = await fetch(
+            `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today`);
+            let data = await response.json();
+            return data;
